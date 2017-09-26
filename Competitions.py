@@ -31,10 +31,6 @@ class Competitions(object):
                 if comp.cid == del_id:
                     self.competitions.remove(comp)
                     break
-            i = 0
-            while i < len(self.competitions):
-                self.competitions[i].cid = i
-                i += 1
         else:
             raise Exception("No such id")
 
@@ -43,3 +39,17 @@ class Competitions(object):
             self.competitions[pid].print()
         else:
             print("Undefined\n")
+
+    def reindex(self):
+        i = 0
+        result = []
+        while i < len(self.competitions):
+            if i == self.competitions[i].cid:
+                i += 1
+                continue
+            else:
+                result.append((self.competitions[i].cid, i))
+                self.competitions[i].cid = i
+                i += 1
+        self.last_id = len(self.competitions) - 1
+        return result

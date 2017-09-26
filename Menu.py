@@ -1,4 +1,5 @@
 import os
+import pickle
 from OlympicGame import OlympicGame
 from Competition import Competition
 from OlympicGames import OlympicGames
@@ -7,10 +8,16 @@ from Olympic_Competition import Olympic_Competition
 
 class Menu(object):
     def draw(self):
+        ol_cp_f = open('ol_cp_f.pickle', 'rb')
+        ol_f = open('ol_f.pickle', 'rb')
+        cp_f = open('cp_f.pickle', 'rb')
         ch = -1
-        ol_cp = Olympic_Competition()
-        ol = OlympicGames()
-        cp = Competitions()
+        # ol_cp = Olympic_Competition()
+        ol_cp = pickle.load(ol_cp_f)
+        # ol = OlympicGames()
+        ol = pickle.load(ol_f)
+        # cp = Competitions()
+        cp = pickle.load(cp_f)
         while ch != 7:
             ch = -1
             print("Welcome\n")
@@ -93,18 +100,65 @@ class Menu(object):
                 print("Which one to delete?")
                 ol.print()
                 ch4 = -1
-                while (ch4 < 0)and(ch4 > len(ol.olympicGames)):
+                while (ch4 < 0)or(ch4 > len(ol.olympicGames)):
                     try:
                         ch4 = int(input())
                     except Exception:
                         print("Try again!")
-                
+                try:
+                    ol.delete(ch4)
+                except Exception as e:
+                    print(e)
+                ol_cp.delete(ch4, -1)
+                olist = ol.reindex()
+                i = 0
+                while i < len(ol_cp.omap):
+                    for o_reindex in olist:
+                        if ol_cp.omap[i] == o_reindex[0]:
+                            ol_cp.omap[i] = o_reindex[1]
+                    i += 1
+            elif ch == 5:
+                print("Which one to delete?")
+                cp.print()
+                ch5 = -1
+                while (ch5 < 0) or (ch5 > len(cp.competitions)):
+                    try:
+                        ch5 = int(input())
+                    except Exception:
+                        print("Try again!")
+                try:
+                    cp.delete(ch5)
+                except Exception as e:
+                    print(e)
+                ol_cp.delete(-1, ch5)
+                clist = cp.reindex()
+                i = 0
+                while i < len(ol_cp.cmap):
+                    for c_reindex in clist:
+                        if ol_cp.cmap[i] == c_reindex[0]:
+                            ol_cp.cmap[i] = c_reindex[1]
+                    i += 1
+            elif ch == 6:
+                result = []
+                for comp in cp.competitions:
+                    if comp.type_of_competition == "Group":
+                        result.append(comp.cid)
+                presult = []
+                i = 0
+                while i < len(ol_cp.omap):
+                    for idx in result:
+                        if ol_cp.cmap[i] == idx:
+                            presult.append(ol_cp.omap[i])
+                    i += 1
+                for ogame in ol.olympicGames:
+                    for idx in presult:
+                        if ogame.oid == idx:
+                            ogame.print()
 
-
-
-
-
-
-
-
+        ol_cp_f = open('ol_cp_f.pickle', 'wb')
+        pickle.dump(ol_cp, ol_cp_f)
+        ol_f = open('ol_f.pickle', 'wb')
+        pickle.dump(ol, ol_f)
+        cp_f = open('cp_f.pickle', 'wb')
+        pickle.dump(cp, cp_f)
 

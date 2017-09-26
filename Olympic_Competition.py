@@ -39,6 +39,7 @@ class Olympic_Competition(object):
                     self.cmap.pop(i)
                     self.cmap_id -= 1
                     self.omap_id -= 1
+                i += 1
         else:
             raise Exception("What are you doing?")
 

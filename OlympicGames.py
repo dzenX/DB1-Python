@@ -30,12 +30,24 @@ class OlympicGames(object):
                 if game.oid == del_id:
                     self.olympicGames.remove(game)
                     break
-            i = 0
-            while i < len(self.olympicGames):
-                self.olympicGames[i].oid = i
-                i += 1
         else:
             raise Exception("No such id")
 
     def printById(self, pid):
-        self.olympicGames[pid].print()
+        if pid < len(self.olympicGames):
+            self.olympicGames[pid].print()
+
+    def reindex(self):
+        i = 0
+        result = []
+        while i < len(self.olympicGames):
+            if i == self.olympicGames[i].oid:
+                i += 1
+                continue
+            else:
+                result.append((self.olympicGames[i].oid, i))
+                self.olympicGames[i].oid = i
+                i += 1
+        self.last_id = len(self.olympicGames) - 1
+        return result
+

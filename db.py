@@ -1,4 +1,3 @@
-import pickle
 from OlympicGame import OlympicGame
 from Competition import Competition
 from OlympicGames import OlympicGames
@@ -6,7 +5,6 @@ from Competitions import Competitions
 from Olympic_Competition import Olympic_Competition
 from Menu import Menu
 
-# from Menu import Menu
 
 # Greetings here
 print("Welcome\n\n")
