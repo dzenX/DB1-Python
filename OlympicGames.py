@@ -6,9 +6,15 @@ class OlympicGames(object):
 
     def add(self, game):
         if game.oid != -1:
+            i = 0
+            while i < len(self.olympicGames):
+                if (self.olympicGames[i].city == game.city) and (self.olympicGames[i].year == game.year):
+                    return i
+                i += 1
             self.last_id += 1
             game.oid = self.last_id
             self.olympicGames.append(game)
+            return self.last_id
         else:
             raise Exception("Invalid object")
 
@@ -30,3 +36,6 @@ class OlympicGames(object):
                 i += 1
         else:
             raise Exception("No such id")
+
+    def printById(self, pid):
+        self.olympicGames[pid].print()

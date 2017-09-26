@@ -6,9 +6,16 @@ class Competitions(object):
 
     def add(self, comp):
         if comp.cid != -1:
+            i = 0
+            while i < len(self.competitions):
+                if self.competitions[i].type_of_competition == comp.type_of_competition:
+                    if self.competitions[i].type_of_sport == comp.type_of_sport:
+                        return i
+                i += 1
             self.last_id += 1
             comp.cid = self.last_id
             self.competitions.append(comp)
+            return self.last_id
         else:
             raise Exception("Invalid object")
 
@@ -30,3 +37,9 @@ class Competitions(object):
                 i += 1
         else:
             raise Exception("No such id")
+
+    def printById(self, pid):
+        if pid != -1:
+            self.competitions[pid].print()
+        else:
+            print("Undefined\n")

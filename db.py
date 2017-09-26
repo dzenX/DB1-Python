@@ -3,6 +3,9 @@ from OlympicGame import OlympicGame
 from Competition import Competition
 from OlympicGames import OlympicGames
 from Competitions import Competitions
+from Olympic_Competition import Olympic_Competition
+from Menu import Menu
+
 # from Menu import Menu
 
 # Greetings here
@@ -45,6 +48,17 @@ cs1.delete(2)
 cs1.print()
 # EOT of Competitions
 
+# Test of class O_C
+oc = Olympic_Competition()
+oc.add(1, 1)
+oc.add(1, 2)
+print(oc.getByID(1))
+oc.delete(0, 2)
+print(oc.getByID(0))
+# EOT of O_C
 
-
+# Menu
+main = Menu()
+main.draw()
+# EOC
 

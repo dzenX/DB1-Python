@@ -9,9 +9,6 @@ class Competition(object):
 
     # method of showing info
     def print(self):
-        print(self.cid, "\n")
-        print(self.type_of_competition, "\n")
-        print(self.type_of_sport, "\n")
-        print("\n")
+        print(str(self.cid) + ". " + self.type_of_competition + ", " + self.type_of_sport)
 
 # EOI of Competition

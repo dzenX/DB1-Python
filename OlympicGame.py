@@ -9,9 +9,8 @@ class OlympicGame(object):
 
     # method of showing info
     def print(self):
-        print(self.oid, "\n")
-        print(self.year, "\n")
-        print(self.city, "\n")
-        print("\n")
+        print(str(self.oid) + ". ", end="")
+        print(str(self.year) + " ", end="")
+        print(self.city)
 
 # EOI of Olympic Game
